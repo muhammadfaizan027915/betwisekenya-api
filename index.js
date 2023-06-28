@@ -1,17 +1,14 @@
 const env = require("dotenv");
 const app = require("express")();
-const morgan = require('morgan')
-const db = require('./config/db')
-
+const morgan = require("morgan");
+const config = require("./config");
 
 // Configurateions
 env.config();
-db.connect();
-
+config.db.connect();
 
 // Middlewares
-app.use([morgan('dev')])
-
+app.use([morgan("dev"), config.session.initialize(), config.cors()]);
 
 // Setting the port for server
 const PORT = process.env.PORT || 5000;

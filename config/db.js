@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const options = {
-  dbName: "Betwisekenya",
+  dbName: process.env.DB_NAME,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
