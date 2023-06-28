@@ -20,13 +20,13 @@ const userSchema = new mongoose.Schema(
       subscriptionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subscription",
-        required: true
+        required: true,
       },
-
       subscribedAt: {
         type: Date,
-        default: Date.now()
-      }
+        default: Date.now(),
+      },
+      tipsCount: { type: Number, required: true },
     },
     roles: [{ type: String, required: true }],
   },

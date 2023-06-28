@@ -8,7 +8,7 @@ const supportSchema = mongoose.Schema({
     type: String,
     required: true,
     enum: {
-      values: ["active", "completed"],
+      values: ["pending", "completed"],
       message: "Value is not supported!",
     },
   },
