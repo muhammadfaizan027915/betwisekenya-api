@@ -1,7 +1,7 @@
 module.exports = {
-  users: require("./users"),
-  subscriptionType: require("./subsciptionType"),
-  subscription: require("./subscription"),
-  tip: require("./tip"),
-  support: require("./support")
+  User: require("./user"),
+  SubscriptionType: require("./subsciptionType"),
+  Subscription: require("./subscription"),
+  Tip: require("./tip"),
+  Support: require("./support")
 };

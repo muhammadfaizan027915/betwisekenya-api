@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    username: { type: String, required: true },
     phone: { type: Number, required: true, unique: true },
-    bettingPlateform: { type: String, required: true },
+    bettingPlateform: { type: String, required: true, default: null },
     password: { type: String, required: true },
     status: {
       type: String,
       required: true,
+      default: "active",
       enum: {
         values: ["active", "deactive"],
         message: "Value is not supported!",
@@ -20,15 +20,13 @@ const userSchema = new mongoose.Schema(
       subscriptionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Subscription",
-        required: true,
       },
       subscribedAt: {
         type: Date,
-        default: Date.now(),
       },
-      tipsCount: { type: Number, required: true },
+      tipsCount: { type: Number,  },
     },
-    roles: [{ type: String, required: true }],
+    roles: { type: Array, required: true, default: ['user'] },
   },
   { timestamps: true }
 );

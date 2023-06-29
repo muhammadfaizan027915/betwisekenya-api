@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 
-const options = {
-  dbName: process.env.DB_NAME,
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-};
-
 const connect = () => {
+  const options = {
+    dbName: process.env.DB_NAME,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    autoIndex: true,
+  };
+
   mongoose
     .connect(process.env.MONGO_DB, options)
     .then(() => console.log("Datbase connected successfully!"))
-    .catch((err) => console.log(err));
+    .catch(() => console.log("Filed to connect to the database!"));
 };
 
 module.exports = {

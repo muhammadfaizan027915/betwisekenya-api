@@ -24,6 +24,7 @@ const initialize = () => {
       ttl: sessionInterval,
       autoRemove: "interval",
       autoRemoveInterval: 60,
+      touchAfter: 24 * 3600,
       crypto: { secret: process.env.SESSION_SECRET },
     }),
   });

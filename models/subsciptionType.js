@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const subTypeSchema = new mongoose.Schema({
   name: { type: String, required: true },
   frequency: { type: Number, min: 1, max: 30, required: true },
-  tipsPlatefrom: {
+  tipsPlateform: {
     type: String,
     required: true,
     enum: {

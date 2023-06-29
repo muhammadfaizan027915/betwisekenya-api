@@ -7,6 +7,7 @@ const subSchema = mongoose.Schema({
   status: {
     type: String,
     required: true,
+    default: "active",
     enum: {
       values: ["active", "deactive"],
       message: "Value is not supported!",
