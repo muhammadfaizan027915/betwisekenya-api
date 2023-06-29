@@ -3,5 +3,6 @@ module.exports = {
   SubscriptionType: require("./subsciptionType"),
   Subscription: require("./subscription"),
   Tip: require("./tip"),
-  Support: require("./support")
+  Support: require("./support"),
+  RefreshToken: require("./refreshToken")
 };

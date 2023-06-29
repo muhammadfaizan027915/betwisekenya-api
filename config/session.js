@@ -1,20 +1,20 @@
 const session = require("express-session");
 const sessionStore = require("connect-mongo");
 
-const sessionInterval = 24 * 3600 * 24;
 
 const initialize = () => {
+  const sessionInterval = 24   * 3600 * 24;
   return session({
     name: "Session",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     secret: process.env.SESSION_SECRET,
     cookie: {
       path: "/",
       secure: false,
       httpOnly: true,
       sameSite: false,
-      domain: process.env.ORIGIN,
+      // domain: process.env.ORIGIN,
       maxAge: sessionInterval,
     },
     store: new sessionStore({

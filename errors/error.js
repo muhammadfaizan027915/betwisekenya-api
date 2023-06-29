@@ -3,7 +3,7 @@ const errorHandler = {
     return { status: 422, message };
   },
 
-  notfound: (message = "Not found") => {
+  badRequest: (message = "Bad request") => {
     return { status: 400, message };
   },
 
@@ -13,6 +13,10 @@ const errorHandler = {
 
   forbidden: (message = "Not allowed") => {
     return { status: 403, message };
+  },
+
+  notfound: (message = "Not found") => {
+    return { status: 404, message };
   },
 
   confilt: (message = "Conflict") => {

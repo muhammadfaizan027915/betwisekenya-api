@@ -4,6 +4,7 @@ const config = require("./config");
 const route = require("./routes");
 const express = require("express");
 const middleWare = require("./middlewares");
+const cookeParser = require("cookie-parser")
 const app = express();
 
 // Configurateions
@@ -16,6 +17,7 @@ app.use([
   config.session.initialize(),
   config.cors(),
   express.json(),
+  cookeParser()
 ]);
 
 // Routes
