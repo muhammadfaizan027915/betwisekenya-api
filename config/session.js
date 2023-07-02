@@ -3,7 +3,7 @@ const sessionStore = require("connect-mongo");
 
 
 const initialize = () => {
-  const sessionInterval = 24   * 3600 * 24;
+  const sessionInterval = 24 * 3600 * 100;
   return session({
     name: "Session",
     resave: false,

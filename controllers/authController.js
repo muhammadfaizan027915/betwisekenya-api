@@ -9,15 +9,18 @@ const authService = require("../services/authService");
  */
 const signupUser = async (req, res, next) => {
   const {
-    username, phone, email, password, bettingPlateform, status, paid, roles
+    username, phone, email, password, confirmPassword, bettingPlateform, status, paid, roles
   } = req.body;
 
-  if(!username || !phone || !email || !password || !bettingPlateform )
+  if(!username || !phone || !email || !password || !confirmPassword || !bettingPlateform )
     return next(errors.validationError("Must provide required fields!"));
 
   try {
     if(await models.User.exists({ phone }))
         return next (errors.confilt("Phone number already taken!"));
+
+    if(password != confirmPassword)
+        return next (errors.validationError("Password does not match confirm password!"))
 
     const hashPassword = await authService.hashPassword(password);
     const user = new models.User ({
@@ -65,9 +68,10 @@ const loginUser = async (req, res, next) => {
     const dbRefreshToken = new models.RefreshToken({
         userId: user?._id, refreshToken
     })
-
     await dbRefreshToken.save();
+    
     req.session.accessToken = accessToken;
+    req.session.save()
 
     const loggedinUser = {
       username: user.username, 
@@ -84,6 +88,23 @@ const loginUser = async (req, res, next) => {
 };
 
 /*
+ * @Route: /auth/user
+ * @Access: Public
+ */
+const getUser = async (req, res, next) => {
+  const { accessToken } = req.session;
+  try {    
+    if(accessToken) {
+      const {userId} = await authService.decodeToken(accessToken);
+      const user = await models.User.findById(userId, "username paid status roles");
+      return res.status(200).json({ user });
+    } next(errors.unAuthorized())
+  } catch (err) {
+      next(errors.serverError(err.message));
+  }
+}
+
+/*
  * @Route: /auth/logout
  * @Access: Public
  */
@@ -92,13 +113,14 @@ const logoutUser = async (req, res, next) => {
     const {userId} = await authService.decodeToken(req.session.accessToken)
     await models.RefreshToken.findOneAndDelete ({userId})
     req.session.destroy();
+    res.status(200).json({message: "Logged out successfully!"})
   }catch (err) {
     next(errors.serverError(err.message));
   }
 }
 
-
 module.exports = {
+  getUser,
   loginUser,
   signupUser,
   logoutUser
